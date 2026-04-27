@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Assignment 3 - Blocky World</title>
+		<style>
+			body { font-family: sans-serif; margin: 12px; }
+			#webgl { background: #000; display: block; }
+			.panel { display: flex; gap: 16px; align-items: flex-start; }
+			.controls { max-width: 320px; font-size: 14px; line-height: 1.4; }
+			kbd {
+				background: #eee; border: 1px solid #999; border-radius: 3px;
+				padding: 1px 5px; font-family: monospace; font-size: 12px;
+			}
+			#perf { margin-top: 8px; font-family: monospace; font-size: 13px; }
+		</style>
+	</head>
+
+	<body>
+		<div class="panel">
+			<canvas id="webgl" width="640" height="640">
+				Please use a browser that supports "canvas"
+			</canvas>
+
+			<div class="controls">
+				<h2>Blocky World</h2>
+				<p><b>Click the canvas</b> to capture the mouse for look. Press <kbd>Esc</kbd> to release.</p>
+
+				<h3>Movement</h3>
+				<ul>
+					<li><kbd>W</kbd> / <kbd>S</kbd> — forward / back</li>
+					<li><kbd>A</kbd> / <kbd>D</kbd> — strafe left / right</li>
+					<li><kbd>Q</kbd> / <kbd>E</kbd> — pan left / right</li>
+					<li><kbd>Space</kbd> / <kbd>Shift</kbd> — up / down</li>
+					<li>Mouse — look around</li>
+				</ul>
+
+				<h3>Building</h3>
+				<ul>
+					<li><b>Left click</b> — place block in front of you</li>
+					<li><b>Right click</b> — remove block in front of you</li>
+					<li><kbd>1</kbd>–<kbd>4</kbd> — select texture for placed block</li>
+				</ul>
+
+				<div id="perf">FPS: --</div>
+			</div>
+		</div>
+
+		<script src="lib/cuon-matrix-cse160.js"></script>
+		<script src="Camera.js"></script>
+		<script src="Cube.js"></script>
+		<script src="Cylinder.js"></script>
+		<script src="Bat.js"></script>
+		<script src="World.js"></script>
+		<script src="asgn3.js"></script>
+	</body>
+</html>
