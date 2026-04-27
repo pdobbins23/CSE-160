@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Assignment 2 - 3D Bat</title>
+  </head>
+
+  <body>
+    <table>
+      <tr>
+        <td valign="top">
+          <canvas id="webgl" width="500" height="500">
+            Please use a browser that supports "canvas"
+          </canvas>
+        </td>
+        <td valign="top">
+          <p>Drag on the canvas to rotate. Shift+Click for the poke animation.</p>
+
+          <h3>Camera</h3>
+          <div>
+            <label>Global Rotation Y: <span id="globalRotVal">0</span></label>
+          </div>
+          <input type="range" id="globalRotSlider" min="-180" max="180" step="1" value="0">
+          <div>
+            <label>Global Rotation X: <span id="globalRotXVal">10</span></label>
+          </div>
+          <input type="range" id="globalRotXSlider" min="-90" max="90" step="1" value="10">
+
+          <h3>Animation</h3>
+          <button id="btnAnimOn">Animation ON</button>
+          <button id="btnAnimOff">Animation OFF</button>
+
+          <h3>Right Wing Joints</h3>
+          <div>
+            <label>Shoulder: <span id="shoulderVal">0</span></label>
+          </div>
+          <input type="range" id="shoulderSlider" min="-90" max="90" step="1" value="0">
+          <div>
+            <label>Forearm: <span id="forearmVal">0</span></label>
+          </div>
+          <input type="range" id="forearmSlider" min="-90" max="90" step="1" value="0">
+          <div>
+            <label>Wing tip: <span id="tipVal">0</span></label>
+          </div>
+          <input type="range" id="tipSlider" min="-90" max="90" step="1" value="0">
+
+          <h3>Head</h3>
+          <div>
+            <label>Head tilt: <span id="headVal">0</span></label>
+          </div>
+          <input type="range" id="headSlider" min="-45" max="45" step="1" value="0">
+
+          <div id="performanceDisplay"></div>
+        </td>
+      </tr>
+    </table>
+
+    <script src="lib/cuon-matrix-cse160.js"></script>
+    <script src="Cube.js"></script>
+    <script src="Cylinder.js"></script>
+    <script src="asgn2.js"></script>
+  </body>
+</html>
