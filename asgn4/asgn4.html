@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Assignment 4 - Lighting</title>
+		<style>
+			body { font-family: sans-serif; margin: 12px; background: #f4f4f4; color: #222; }
+			.panel { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+			#webgl { background: #000; display: block; border-radius: 4px; }
+			.controls {
+				min-width: 320px; max-width: 360px;
+				font-size: 13px; line-height: 1.5;
+				background: #fff; padding: 12px 16px; border-radius: 6px;
+				box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+			}
+			.controls h2 { margin: 0 0 8px 0; font-size: 18px; }
+			.controls h3 { margin: 12px 0 4px 0; font-size: 14px; color: #333; }
+			.controls ul { margin: 4px 0; padding-left: 18px; }
+			.row { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+			.row label { min-width: 90px; font-size: 12px; }
+			.row input[type="range"] { flex: 1; }
+			.row input[type="color"] { width: 36px; height: 22px; border: none; padding: 0; background: none; }
+			.row .val { min-width: 36px; text-align: right; font-family: monospace; font-size: 11px; color: #666; }
+			button {
+				padding: 4px 10px; margin: 2px 4px 2px 0; font-size: 12px;
+				border: 1px solid #aaa; background: #fafafa; border-radius: 3px;
+				cursor: pointer;
+			}
+			button.on { background: #cfe8ff; border-color: #4a90d9; }
+			kbd {
+				background: #eee; border: 1px solid #999; border-radius: 3px;
+				padding: 1px 5px; font-family: monospace; font-size: 11px;
+			}
+			#perf { margin-top: 8px; font-family: monospace; font-size: 12px; color: #555; }
+			.notes { font-size: 11px; color: #666; margin-top: 6px; }
+		</style>
+	</head>
+
+	<body>
+		<div class="panel">
+			<canvas id="webgl" width="720" height="640">
+				Please use a browser that supports "canvas"
+			</canvas>
+
+			<div class="controls">
+				<h2>Lighting World</h2>
+
+				<h3>Camera</h3>
+				<ul>
+					<li><kbd>W</kbd>/<kbd>S</kbd> forward/back, <kbd>A</kbd>/<kbd>D</kbd> strafe</li>
+					<li><kbd>Q</kbd>/<kbd>E</kbd> pan, <kbd>Space</kbd>/<kbd>Shift</kbd> up/down</li>
+					<li>Click canvas for mouse look (<kbd>Esc</kbd> to release)</li>
+				</ul>
+
+				<h3>Display</h3>
+				<div>
+					<button id="btnLighting" class="on">Lighting: ON</button>
+					<button id="btnNormals">Normals: OFF</button>
+				</div>
+
+				<h3>Point Light</h3>
+				<div>
+					<button id="btnPoint" class="on">Point: ON</button>
+					<button id="btnPointAnim" class="on">Animate: ON</button>
+				</div>
+				<div class="row"><label>X</label><input id="lightX" type="range" min="-30" max="30" step="0.1" value="0"><span class="val" id="lightXv">0</span></div>
+				<div class="row"><label>Y</label><input id="lightY" type="range" min="0"   max="50" step="0.1" value="22"><span class="val" id="lightYv">22</span></div>
+				<div class="row"><label>Z</label><input id="lightZ" type="range" min="-30" max="30" step="0.1" value="0"><span class="val" id="lightZv">0</span></div>
+				<div class="row"><label>Color</label><input id="lightColor" type="color" value="#ffffff"></div>
+
+				<h3>Spot Light</h3>
+				<div>
+					<button id="btnSpot" class="on">Spot: ON</button>
+				</div>
+				<div class="row"><label>Cutoff</label><input id="spotCut" type="range" min="2" max="60" step="0.5" value="18"><span class="val" id="spotCutv">18</span></div>
+				<div class="row"><label>Color</label><input id="spotColor" type="color" value="#ffe9a8"></div>
+
+				<div id="perf">FPS: --</div>
+				<div class="notes">Sphere, cube, torus knot, voxel terrain + bats — all lit by a moving point light (rendered as a small white cube) plus a downward spotlight in the center of the scene.</div>
+			</div>
+		</div>
+
+		<script src="lib/cuon-matrix-cse160.js"></script>
+		<script src="Camera.js"></script>
+		<script src="Cube.js"></script>
+		<script src="Cylinder.js"></script>
+		<script src="Sphere.js"></script>
+		<script src="Model.js"></script>
+		<script src="Bat.js"></script>
+		<script src="World.js"></script>
+		<script src="asgn4.js"></script>
+	</body>
+</html>
