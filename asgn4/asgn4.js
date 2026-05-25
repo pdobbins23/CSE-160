@@ -248,8 +248,8 @@ function main() {
 	gl = canvas.getContext("webgl2", { antialias: true });
 	if (!gl) { alert("WebGL 2 is required."); throw new Error("WebGL 2 not available"); }
 
-	mesh  = makeProgram(MESH_VS, MESH_FS);
-	voxel = makeProgram(VOXEL_VS, VOXEL_FS);
+	mesh  = makeProgram(MESH_VS, MESH_FS, { a_Position: 0, a_Normal: 1, a_UV: 2 });
+	voxel = makeProgram(VOXEL_VS, VOXEL_FS, { a_FaceData: 3 });
 
 	initTextureArray();
 	gl.useProgram(mesh.program);  gl.uniform1i(mesh.u_TextureArray, 0);
@@ -274,22 +274,23 @@ function main() {
 }
 
 
-function makeProgram(vsSrc, fsSrc) {
+function makeProgram(vsSrc, fsSrc, attribLocs) {
 	const compile = (type, src) => {
 		const s = gl.createShader(type);
 		gl.shaderSource(s, src);
 		gl.compileShader(s);
 		if (!gl.getShaderParameter(s, gl.COMPILE_STATUS))
-			console.log("Shader compile failed:", gl.getShaderInfoLog(s));
+			throw new Error("Shader compile failed: " + gl.getShaderInfoLog(s));
 		return s;
 	};
 
 	const program = gl.createProgram();
 	gl.attachShader(program, compile(gl.VERTEX_SHADER, vsSrc));
 	gl.attachShader(program, compile(gl.FRAGMENT_SHADER, fsSrc));
+	if (attribLocs) for (const n in attribLocs) gl.bindAttribLocation(program, attribLocs[n], n);
 	gl.linkProgram(program);
 	if (!gl.getProgramParameter(program, gl.LINK_STATUS))
-		console.log("Program link failed:", gl.getProgramInfoLog(program));
+		throw new Error("Program link failed: " + gl.getProgramInfoLog(program));
 
 	const obj = { program };
 	const nAttrs = gl.getProgramParameter(program, gl.ACTIVE_ATTRIBUTES);
@@ -319,6 +320,8 @@ function initTextureArray() {
 	gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 	gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_WRAP_S, gl.REPEAT);
 	gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_WRAP_T, gl.REPEAT);
+
+	gl.generateMipmap(gl.TEXTURE_2D_ARRAY);
 
 	let loaded = 0;
 	TEXTURE_SOURCES.forEach((url, i) => {
