@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Assignment 5 - Three.js Magical Village</title>
+		<style>
+			html, body { margin: 0; padding: 0; background: #000; color: #eee; font-family: sans-serif; overflow: hidden; }
+			#app { position: fixed; inset: 0; }
+			#c { width: 100%; height: 100%; display: block; }
+
+			#hud {
+				position: absolute; top: 12px; left: 12px;
+				background: rgba(20, 20, 28, 0.78);
+				padding: 12px 14px;
+				border-radius: 6px;
+				font-size: 12px; line-height: 1.45;
+				max-width: 320px;
+				box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+				border: 1px solid #444;
+			}
+			#hud h2 { margin: 0 0 6px 0; font-size: 16px; color: #ffd28a; }
+			#hud h3 { margin: 10px 0 4px 0; font-size: 12px; color: #aac; text-transform: uppercase; letter-spacing: 0.06em; }
+			#hud ul { margin: 4px 0; padding-left: 18px; }
+			#hud .row { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
+			#hud .row label { min-width: 78px; font-size: 11px; color: #ccc; }
+			#hud .row input[type="range"] { flex: 1; }
+			#hud .row .val { font-family: monospace; font-size: 11px; color: #ffd28a; min-width: 28px; text-align: right; }
+			#hud button {
+				padding: 4px 10px; font-size: 11px;
+				background: #2a2a3a; color: #eee;
+				border: 1px solid #555; border-radius: 3px;
+				cursor: pointer; margin: 2px 4px 2px 0;
+			}
+			#hud button.on { background: #4a6a9a; border-color: #7aa; }
+			#hud button:hover { background: #3a3a4a; }
+			kbd { background: #333; border: 1px solid #555; border-radius: 3px; padding: 1px 5px; font-family: monospace; font-size: 10px; }
+			#fps { position: absolute; top: 8px; right: 12px; font-family: monospace; font-size: 12px; color: #ffd28a; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px; }
+			#loading {
+				position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+				background: #0a0a14; color: #ffd28a; font-size: 18px; z-index: 10;
+				transition: opacity 0.6s; pointer-events: none;
+			}
+			#loading.hidden { opacity: 0; }
+		</style>
+
+		<script type="importmap">
+		{
+			"imports": {
+				"three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+				"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+			}
+		}
+		</script>
+	</head>
+
+	<body>
+		<div id="app">
+			<canvas id="c"></canvas>
+			<div id="loading">Loading magical village…</div>
+			<div id="fps">FPS: --</div>
+
+			<div id="hud">
+				<h2>Magical Forest Village</h2>
+
+				<h3>Camera</h3>
+				<ul>
+					<li>Left-drag to orbit, right-drag to pan</li>
+					<li>Scroll to zoom</li>
+				</ul>
+
+				<h3>Time of Day</h3>
+				<div class="row">
+					<label>Sun</label>
+					<input id="sun" type="range" min="0" max="1" step="0.001" value="0.18">
+					<span class="val" id="sunV">0.18</span>
+				</div>
+				<button id="btnAuto" class="on">Auto Cycle: ON</button>
+
+				<h3>Lights</h3>
+				<button id="btnLanterns" class="on">Lanterns</button>
+				<button id="btnFire" class="on">Campfire</button>
+				<button id="btnSpot" class="on">Lighthouse Beam</button>
+				<button id="btnFireflies" class="on">Fireflies</button>
+
+				<h3>Wow</h3>
+				<div>Day/night cycle, animated GLB fox, bobbing lanterns with point lights, flickering fire, swirling fireflies, and a sweeping lighthouse spotlight.</div>
+			</div>
+		</div>
+
+		<script type="module" src="./asgn5.js"></script>
+	</body>
+</html>
